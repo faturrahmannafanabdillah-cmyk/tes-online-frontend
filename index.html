@@ -178,6 +178,94 @@
       .card, .soal-card { padding: 16px; }
       .timer-box { font-size: 15px; padding: 6px 12px; }
     }
+    /* --- ARMY ALPHA ENGINE CSS --- */
+.alpha-container { text-align: center; margin-top: 20px; }
+.audio-btn {
+  background: var(--primary); color: white; border: none; padding: 12px 24px;
+  border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,86,179,0.3); transition: 0.3s;
+}
+.audio-btn:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; }
+.alpha-timer { font-size: 20px; font-weight: 800; color: var(--danger); margin: 15px 0; display: none; }
+
+/* Pembungkus bentuk */
+.shape-board {
+  display: flex; justify-content: center; align-items: center; gap: 15px;
+  flex-wrap: wrap; margin-top: 30px; min-height: 150px;
+  pointer-events: none; /* Dikunci sebelum audio selesai */
+  opacity: 0.3; transition: opacity 0.5s;
+}
+.shape-board.active { pointer-events: auto; opacity: 1; }
+
+/* Elemen Bentuk Standar */
+.alpha-shape {
+  display: flex; justify-content: center; align-items: center;
+  border: 3px solid #1e293b; background: white; cursor: pointer;
+  position: relative; transition: transform 0.1s;
+  font-weight: bold; font-size: 20px; color: #1e293b;
+}
+.alpha-shape:active { transform: scale(0.95); }
+
+/* Varian Bentuk */
+.shape-circle { width: 60px; height: 60px; border-radius: 50%; }
+.shape-box { width: 60px; height: 60px; border-radius: 0; }
+
+/* Efek Coretan Silang (X) murni pakai CSS */
+.dicoret::after {
+  content: '❌'; position: absolute; font-size: 40px; color: #dc3545;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none; /* Biar tetap bisa diklik bawahnya */
+}
+
+/* Khusus SVG (Soal 5 & 6) */
+.alpha-svg { max-width: 250px; overflow: visible; }
+.svg-path { fill: white; stroke: #1e293b; stroke-width: 3; cursor: pointer; transition: fill 0.2s; }
+.svg-path:hover { fill: #f1f5f9; }
+.svg-path.dicoret { fill: #fca5a5; } /* Kalau irisan SVG diklik, warnanya jadi merah muda */
+/* --- ARMY ALPHA ENGINE CSS --- */
+.alpha-container { text-align: center; margin-top: 20px; }
+.audio-btn {
+  background: var(--primary); color: white; border: none; padding: 12px 24px;
+  border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,86,179,0.3); transition: 0.3s;
+}
+.audio-btn:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; }
+.alpha-timer { font-size: 20px; font-weight: 800; color: var(--danger); margin: 15px 0; display: none; }
+
+/* Pembungkus bentuk */
+.shape-board {
+  display: flex; justify-content: center; align-items: center; gap: 15px;
+  flex-wrap: wrap; margin-top: 30px; min-height: 150px;
+  pointer-events: none; /* Dikunci sebelum audio selesai */
+  opacity: 0.3; transition: opacity 0.5s;
+}
+.shape-board.active { pointer-events: auto; opacity: 1; }
+
+/* Elemen Bentuk Standar */
+.alpha-shape {
+  display: flex; justify-content: center; align-items: center;
+  border: 3px solid #1e293b; background: white; cursor: pointer;
+  position: relative; transition: transform 0.1s;
+  font-weight: bold; font-size: 20px; color: #1e293b;
+}
+.alpha-shape:active { transform: scale(0.95); }
+
+/* Varian Bentuk */
+.shape-circle { width: 60px; height: 60px; border-radius: 50%; }
+.shape-box { width: 60px; height: 60px; border-radius: 0; }
+
+/* Efek Coretan Silang (X) murni pakai CSS */
+.dicoret::after {
+  content: '❌'; position: absolute; font-size: 40px; color: #dc3545;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none; /* Biar tetap bisa diklik bawahnya */
+}
+
+/* Khusus SVG (Soal 5 & 6) */
+.alpha-svg { max-width: 250px; overflow: visible; }
+.svg-path { fill: white; stroke: #1e293b; stroke-width: 3; cursor: pointer; transition: fill 0.2s; }
+.svg-path:hover { fill: #f1f5f9; }
+.svg-path.dicoret { fill: #fca5a5; } /* Kalau irisan SVG diklik, warnanya jadi merah muda */
   </style>
 </head>
 <body>
@@ -301,6 +389,73 @@
     </div>
 
     <div id="tempatSoal"></div>
+    <!-- CONTOH SOAL 1: Murni Lingkaran -->
+<div class="soal-card">
+  <div class="soal-header"><span class="soal-num">Soal 1</span></div>
+  <div class="alpha-container">
+    <button id="btnAudio_ALP_1" class="audio-btn" onclick="playAudioAlpha('ALP_1', 5)">▶️ Putar Instruksi</button>
+    <div id="timer_ALP_1" class="alpha-timer"></div>
+    
+    <div id="board_ALP_1" class="shape-board">
+      <div class="alpha-shape shape-circle" onclick="klikBentuk('ALP_1', this, 1)"></div>
+      <div class="alpha-shape shape-circle" onclick="klikBentuk('ALP_1', this, 2)"></div>
+      <div class="alpha-shape shape-circle" onclick="klikBentuk('ALP_1', this, 3)"></div>
+      <div class="alpha-shape shape-circle" onclick="klikBentuk('ALP_1', this, 4)"></div>
+      <div class="alpha-shape shape-circle" onclick="klikBentuk('ALP_1', this, 5)"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTOH SOAL 2: Lingkaran + Angka -->
+<div class="soal-card">
+  <div class="soal-header"><span class="soal-num">Soal 2</span></div>
+  <div class="alpha-container">
+    <button id="btnAudio_ALP_2" class="audio-btn" onclick="playAudioAlpha('ALP_2', 5)">▶️ Putar Instruksi</button>
+    <div id="timer_ALP_2" class="alpha-timer"></div>
+    
+    <div id="board_ALP_2" class="shape-board">
+      <!-- Looping angka 1-9 -->
+      <div class="alpha-shape shape-circle" onclick="klikBentuk('ALP_2', this, '1')">1</div>
+      <div class="alpha-shape shape-circle" onclick="klikBentuk('ALP_2', this, '2')">2</div>
+      <div class="alpha-shape shape-circle" onclick="klikBentuk('ALP_2', this, '3')">3</div>
+      <!-- Dst sampai 9... -->
+    </div>
+  </div>
+</div>
+
+<!-- CONTOH SOAL 5: Irisan Lingkaran & Segitiga (SVG Magic) -->
+<div class="soal-card">
+  <div class="soal-header"><span class="soal-num">Soal 5</span></div>
+  <div class="alpha-container">
+    <button id="btnAudio_ALP_5" class="audio-btn" onclick="playAudioAlpha('ALP_5', 5)">▶️ Putar Instruksi</button>
+    <div id="timer_ALP_5" class="alpha-timer"></div>
+    
+    <div id="board_ALP_5" class="shape-board">
+      <svg class="alpha-svg" viewBox="0 0 200 150">
+        <!-- Area Segitiga Saja (Luar Lingkaran) -->
+        <path class="svg-path" d="M 100,10 L 190,140 L 10,140 Z" clip-path="url(#cut-circle)" onclick="klikBentuk('ALP_5', this, 'segitiga-murni')"/>
+        
+        <!-- Area Lingkaran Saja (Luar Segitiga) -->
+        <path class="svg-path" d="M 60,70 A 50,50 0 1,1 60,140 A 50,50 0 1,1 60,70" clip-path="url(#cut-triangle)" onclick="klikBentuk('ALP_5', this, 'lingkaran-murni')"/>
+        
+        <!-- Area Irisan (Tengah-tengah yang bertabrakan) -->
+        <path class="svg-path" d="M 100,10 L 190,140 L 10,140 Z" clip-path="url(#keep-circle)" onclick="klikBentuk('ALP_5', this, 'irisan')"/>
+        
+        <!-- Definisi Potongan Masking SVG -->
+        <defs>
+          <clipPath id="cut-circle">
+            <!-- Masking untuk memotong segitiga dari lingkaran -->
+            <path d="M-100,-100 L300,-100 L300,300 L-100,300 Z M 60,70 A 50,50 0 1,0 60,140 A 50,50 0 1,0 60,70" clip-rule="evenodd"/>
+          </clipPath>
+          <clipPath id="keep-circle">
+            <!-- Hanya mengambil area di dalam lingkaran -->
+            <path d="M 60,70 A 50,50 0 1,1 60,140 A 50,50 0 1,1 60,70"/>
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</div>
 
     <div style="padding:0 4px;">
       <button type="button" class="btn-primary" id="btnSelesai" onclick="prosesLanjutTahap(false)">
@@ -888,6 +1043,58 @@
       setTimeout(() => { banner.style.display = 'none'; }, 4000);
     }
   }
+  // Memori untuk menyimpan apa saja yang diklik kandidat
+let jawabanAlpha = {};
+
+function playAudioAlpha(soalId, durasiWaktu) {
+  const btn = document.getElementById(`btnAudio_${soalId}`);
+  const board = document.getElementById(`board_${soalId}`);
+  const timerDisplay = document.getElementById(`timer_${soalId}`);
+  
+  // Asumsinya file audio ada di folder /public/audio/ (Karena Vercel, linknya langsung /audio/...)
+  // Untuk DUMMY testing, kita pakai simulasi setTimeout saja kalau file audio belum ada
+  btn.disabled = true;
+  btn.textContent = '🔊 Memutar Instruksi...';
+  
+  // Simulasi Audio Durasi 4 detik
+  setTimeout(() => {
+    btn.style.display = 'none'; // Hilangkan tombol
+    board.classList.add('active'); // Buka gembok area klik
+    mulaiTimerAlpha(soalId, durasiWaktu, timerDisplay, board);
+  }, 4000); // Ganti ini dengan audio.onended nanti jika file MP3 sudah ada
+}
+
+function mulaiTimerAlpha(soalId, durasi, timerDisplay, board) {
+  timerDisplay.style.display = 'block';
+  let sisa = durasi;
+  timerDisplay.textContent = `⏳ Waktu: ${sisa} detik`;
+
+  const interval = setInterval(() => {
+    sisa--;
+    timerDisplay.textContent = `⏳ Waktu: ${sisa} detik`;
+    if (sisa <= 0) {
+      clearInterval(interval);
+      timerDisplay.textContent = 'WAKTU HABIS!';
+      board.classList.remove('active'); // Kunci lagi area kliknya
+      
+      // AUTO NEXT (Otomatis scroll ke soal berikutnya setelah 1.5 detik)
+      setTimeout(() => { alert(`Lanjut ke soal berikutnya! Jawaban ${soalId}: ${jawabanAlpha[soalId] || 'Kosong'}`); }, 1500);
+    }
+  }, 1000);
+}
+
+// Fungsi ketika kandidat mencoret bentuk
+function klikBentuk(soalId, elemen, idBentuk) {
+  elemen.classList.toggle('dicoret'); // Munculkan/hilangkan silang
+  
+  if (!jawabanAlpha[soalId]) jawabanAlpha[soalId] = [];
+  
+  if (elemen.classList.contains('dicoret')) {
+    jawabanAlpha[soalId].push(idBentuk); // Simpan ke array
+  } else {
+    jawabanAlpha[soalId] = jawabanAlpha[soalId].filter(id => id !== idBentuk); // Hapus dari array
+  }
+}
 </script>
 </body>
 </html>
