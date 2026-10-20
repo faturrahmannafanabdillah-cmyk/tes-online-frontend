@@ -178,94 +178,53 @@
       .card, .soal-card { padding: 16px; }
       .timer-box { font-size: 15px; padding: 6px 12px; }
     }
-    /* --- ARMY ALPHA ENGINE CSS --- */
-.alpha-container { text-align: center; margin-top: 20px; }
+    /* --- ARMY ALPHA: MODE PER HALAMAN --- */
+.alpha-container { text-align: center; margin: 20px auto; max-width: 600px; }
 .audio-btn {
-  background: var(--primary); color: white; border: none; padding: 12px 24px;
+  background: var(--primary); color: white; border: none; padding: 14px 28px;
   border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,86,179,0.3); transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(0,86,179,0.3); transition: 0.3s; width: 100%;
 }
 .audio-btn:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; }
-.alpha-timer { font-size: 20px; font-weight: 800; color: var(--danger); margin: 15px 0; display: none; }
+.alpha-timer { font-size: 24px; font-weight: 800; color: var(--danger); margin: 20px 0; display: none; }
 
-/* Pembungkus bentuk */
+/* Pembungkus bentuk agar tetap rapi di HP */
 .shape-board {
-  display: flex; justify-content: center; align-items: center; gap: 15px;
-  flex-wrap: wrap; margin-top: 30px; min-height: 150px;
-  pointer-events: none; /* Dikunci sebelum audio selesai */
-  opacity: 0.3; transition: opacity 0.5s;
+  display: flex; justify-content: center; align-items: center; gap: 10px;
+  flex-wrap: nowrap; /* Paksa sebaris */
+  overflow-x: auto; /* Bisa digeser di HP kalau kepanjangan */
+  padding: 20px 10px; margin-top: 10px; min-height: 120px;
+  pointer-events: none; opacity: 0.3; transition: opacity 0.5s;
 }
 .shape-board.active { pointer-events: auto; opacity: 1; }
 
-/* Elemen Bentuk Standar */
-.alpha-shape {
-  display: flex; justify-content: center; align-items: center;
-  border: 3px solid #1e293b; background: white; cursor: pointer;
-  position: relative; transition: transform 0.1s;
-  font-weight: bold; font-size: 20px; color: #1e293b;
+/* Elemen Input (Bisa diketik 1 huruf atau diklik) */
+.alpha-input {
+  width: 50px; height: 50px; flex-shrink: 0;
+  border: 3px solid #1e293b; background: white; 
+  text-align: center; font-size: 24px; font-weight: bold; color: #1e293b;
+  text-transform: uppercase; cursor: pointer; outline: none;
+  transition: transform 0.1s;
 }
-.alpha-shape:active { transform: scale(0.95); }
+.alpha-input:focus { border-color: var(--primary); transform: scale(1.05); }
+.shape-circle { border-radius: 50%; }
+.shape-box { border-radius: 0; }
 
-/* Varian Bentuk */
-.shape-circle { width: 60px; height: 60px; border-radius: 50%; }
-.shape-box { width: 60px; height: 60px; border-radius: 0; }
-
-/* Efek Coretan Silang (X) murni pakai CSS */
-.dicoret::after {
-  content: '❌'; position: absolute; font-size: 40px; color: #dc3545;
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-  pointer-events: none; /* Biar tetap bisa diklik bawahnya */
+/* Tombol Klik Biasa (Untuk Teks / Angka) */
+.alpha-click {
+  font-size: 20px; font-weight: bold; padding: 10px; cursor: pointer;
+  border-radius: 8px; transition: background 0.2s; user-select: none;
 }
+.alpha-click.dicoret { text-decoration: line-through; color: #dc3545; background: #fee2e2; }
 
-/* Khusus SVG (Soal 5 & 6) */
-.alpha-svg { max-width: 250px; overflow: visible; }
-.svg-path { fill: white; stroke: #1e293b; stroke-width: 3; cursor: pointer; transition: fill 0.2s; }
-.svg-path:hover { fill: #f1f5f9; }
-.svg-path.dicoret { fill: #fca5a5; } /* Kalau irisan SVG diklik, warnanya jadi merah muda */
-/* --- ARMY ALPHA ENGINE CSS --- */
-.alpha-container { text-align: center; margin-top: 20px; }
-.audio-btn {
-  background: var(--primary); color: white; border: none; padding: 12px 24px;
-  border-radius: 30px; font-weight: bold; font-size: 16px; cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,86,179,0.3); transition: 0.3s;
+/* Transisi Halus Antar Soal */
+.soal-halaman { display: none; animation: fadeIn 0.4s ease; }
+.soal-halaman.aktif { display: block; }
+
+@media (max-width: 600px) {
+  .alpha-input { width: 40px; height: 40px; font-size: 18px; } /* Mengecil di HP */
+  .shape-board { gap: 6px; }
 }
-.audio-btn:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; }
-.alpha-timer { font-size: 20px; font-weight: 800; color: var(--danger); margin: 15px 0; display: none; }
-
-/* Pembungkus bentuk */
-.shape-board {
-  display: flex; justify-content: center; align-items: center; gap: 15px;
-  flex-wrap: wrap; margin-top: 30px; min-height: 150px;
-  pointer-events: none; /* Dikunci sebelum audio selesai */
-  opacity: 0.3; transition: opacity 0.5s;
-}
-.shape-board.active { pointer-events: auto; opacity: 1; }
-
-/* Elemen Bentuk Standar */
-.alpha-shape {
-  display: flex; justify-content: center; align-items: center;
-  border: 3px solid #1e293b; background: white; cursor: pointer;
-  position: relative; transition: transform 0.1s;
-  font-weight: bold; font-size: 20px; color: #1e293b;
-}
-.alpha-shape:active { transform: scale(0.95); }
-
-/* Varian Bentuk */
-.shape-circle { width: 60px; height: 60px; border-radius: 50%; }
-.shape-box { width: 60px; height: 60px; border-radius: 0; }
-
-/* Efek Coretan Silang (X) murni pakai CSS */
-.dicoret::after {
-  content: '❌'; position: absolute; font-size: 40px; color: #dc3545;
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-  pointer-events: none; /* Biar tetap bisa diklik bawahnya */
-}
-
-/* Khusus SVG (Soal 5 & 6) */
-.alpha-svg { max-width: 250px; overflow: visible; }
-.svg-path { fill: white; stroke: #1e293b; stroke-width: 3; cursor: pointer; transition: fill 0.2s; }
-.svg-path:hover { fill: #f1f5f9; }
-.svg-path.dicoret { fill: #fca5a5; } /* Kalau irisan SVG diklik, warnanya jadi merah muda */
   </style>
 </head>
 <body>
@@ -387,6 +346,10 @@
       <div class="navigator-title">Navigator Soal:</div>
       <div class="navigator-grid" id="navigatorGrid"></div>
     </div>
+
+    <div id="tempatSoalAlpha">
+  <!-- Soal akan di-render di sini secara otomatis oleh JavaScript -->
+</div>
 
     <div id="tempatSoal"></div>
     <!-- CONTOH SOAL 1: Murni Lingkaran -->
@@ -1043,58 +1006,181 @@
       setTimeout(() => { banner.style.display = 'none'; }, 4000);
     }
   }
-  // Memori untuk menyimpan apa saja yang diklik kandidat
-let jawabanAlpha = {};
+  // ==========================================
+// MESIN ARMY ALPHA - SINGLE PAGE APPLICATION
+// ==========================================
 
-function playAudioAlpha(soalId, durasiWaktu) {
+// Ini representasi JSON yang nanti ditarik dari Google Sheets
+const databaseAlpha = [
+  {
+    id: "ALP_1", nomor: 1, waktu: 5, audio: "alpha_1.mp3",
+    tipe: "INPUT_LINGKARAN", jumlah: 5
+    // Kunci Jawaban: input index [1] == "X", input index [4] != "X" && != ""
+  },
+  {
+    id: "ALP_3", nomor: 3, waktu: 10, audio: "alpha_3.mp3",
+    tipe: "KOMA_DAN_CORET",
+    // Visual: 3 Lingkaran input + Teks "YA" "TIDAK" yang bisa diklik
+  },
+  {
+    id: "ALP_9", nomor: 9, waktu: 15, audio: "alpha_9.mp3",
+    tipe: "DERET_ANGKA", deret: ["45","87","54","33","66","78","81","49","34","41","71","99","17","82","64","89"]
+    // Kunci Jawaban: angka 33 & 34 dicoret
+  }
+  // Soal 5 & 6 (SVG) akan kita inject menyusul
+];
+
+let indexSoalSaatIni = 0;
+let jawabanAlpha = {}; 
+
+function mulaiTestAlpha() {
+  renderHalamanSoal(indexSoalSaatIni);
+}
+
+function renderHalamanSoal(index) {
+  const container = document.getElementById('tempatSoalAlpha');
+  container.innerHTML = ''; // Bersihkan layar
+  
+  if (index >= databaseAlpha.length) {
+    alert("TES ARMY ALPHA SELESAI! Mengirim jawaban...");
+    // Panggil fungsi submit ke GAS di sini
+    return;
+  }
+
+  const soal = databaseAlpha[index];
+  
+  // Bikin kerangka halamannya
+  const card = document.createElement('div');
+  card.className = 'card soal-halaman aktif';
+  
+  let htmlVisual = '';
+  
+  // GENERATOR VISUAL BERDASARKAN TIPE SOAL
+  if (soal.tipe === "INPUT_LINGKARAN") {
+    // Render 5 lingkaran yang bisa diketik huruf/X
+    let lingkaran = '';
+    for(let i=0; i<soal.jumlah; i++) {
+      lingkaran += `<input type="text" maxlength="1" class="alpha-input shape-circle" id="input_${soal.id}_${i}" autocomplete="off">`;
+    }
+    htmlVisual = `<div id="board_${soal.id}" class="shape-board">${lingkaran}</div>`;
+  } 
+  else if (soal.tipe === "DERET_ANGKA") {
+    // Render deretan angka yang bisa diklik/coret
+    let deretHTML = '';
+    soal.deret.forEach((angka, i) => {
+      deretHTML += `<span class="alpha-click" onclick="this.classList.toggle('dicoret')" id="angka_${soal.id}_${i}">${angka}</span>`;
+    });
+    htmlVisual = `<div id="board_${soal.id}" class="shape-board" style="flex-wrap: wrap;">${deretHTML}</div>`;
+  }
+  else if (soal.tipe === "KOMA_DAN_CORET") {
+    // Soal 3: 3 Lingkaran + Teks
+    htmlVisual = `
+      <div id="board_${soal.id}" class="shape-board">
+        <input type="text" maxlength="1" class="alpha-input shape-circle" id="input_${soal.id}_0">
+        <input type="text" maxlength="1" class="alpha-input shape-circle" id="input_${soal.id}_1">
+        <input type="text" maxlength="1" class="alpha-input shape-circle" id="input_${soal.id}_2">
+        <div style="margin-left:20px;">
+          <span class="alpha-click" onclick="this.classList.toggle('dicoret')">YA</span>
+          <span class="alpha-click" onclick="this.classList.toggle('dicoret')" id="coret_${soal.id}_tidak">TIDAK</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Inject ke Card
+  card.innerHTML = `
+    <div class="soal-header"><span class="soal-num">Soal ${soal.nomor} / 12</span></div>
+    <div class="alpha-container">
+      <button id="btnAudio_${soal.id}" class="audio-btn" onclick="putarAudioAlpha('${soal.id}', ${soal.waktu}, '${soal.audio}')">
+        🔊 Putar Instruksi Nomor ${soal.nomor}
+      </button>
+      <div id="timer_${soal.id}" class="alpha-timer"></div>
+      ${htmlVisual}
+    </div>
+  `;
+  
+  container.appendChild(card);
+}
+
+function putarAudioAlpha(soalId, waktuDurasi, fileAudio) {
   const btn = document.getElementById(`btnAudio_${soalId}`);
   const board = document.getElementById(`board_${soalId}`);
   const timerDisplay = document.getElementById(`timer_${soalId}`);
   
-  // Asumsinya file audio ada di folder /public/audio/ (Karena Vercel, linknya langsung /audio/...)
-  // Untuk DUMMY testing, kita pakai simulasi setTimeout saja kalau file audio belum ada
+  // PENGGUNAAN AUDIO ASLI (Pastikan file mp3 ada di folder /audio/)
+  /*
+  const audio = new Audio(`/audio/${fileAudio}`);
+  audio.play();
   btn.disabled = true;
-  btn.textContent = '🔊 Memutar Instruksi...';
+  btn.textContent = '🔊 Sedang memutar... DENGARKAN!';
   
-  // Simulasi Audio Durasi 4 detik
+  audio.onended = () => {
+    btn.style.display = 'none';
+    board.classList.add('active');
+    jalankanTimerSoal(soalId, waktuDurasi, timerDisplay, board);
+  };
+  */
+
+  // --- MODE SIMULASI (Untuk Testing Tanpa File Audio) ---
+  btn.disabled = true;
+  btn.textContent = '🔊 (Simulasi Audio 3 Detik)...';
   setTimeout(() => {
-    btn.style.display = 'none'; // Hilangkan tombol
-    board.classList.add('active'); // Buka gembok area klik
-    mulaiTimerAlpha(soalId, durasiWaktu, timerDisplay, board);
-  }, 4000); // Ganti ini dengan audio.onended nanti jika file MP3 sudah ada
+    btn.style.display = 'none';
+    board.classList.add('active'); // Buka gembok!
+    
+    // Auto-focus ke input pertama biar kandidat nggak usah nge-tap lagi
+    const firstInput = board.querySelector('input');
+    if(firstInput) firstInput.focus();
+
+    jalankanTimerSoal(soalId, waktuDurasi, timerDisplay, board);
+  }, 3000);
 }
 
-function mulaiTimerAlpha(soalId, durasi, timerDisplay, board) {
+function jalankanTimerSoal(soalId, durasi, timerDisplay, board) {
   timerDisplay.style.display = 'block';
   let sisa = durasi;
-  timerDisplay.textContent = `⏳ Waktu: ${sisa} detik`;
+  timerDisplay.textContent = `⏳ ${sisa} detik`;
 
   const interval = setInterval(() => {
     sisa--;
-    timerDisplay.textContent = `⏳ Waktu: ${sisa} detik`;
+    timerDisplay.textContent = `⏳ ${sisa} detik`;
+    
     if (sisa <= 0) {
       clearInterval(interval);
       timerDisplay.textContent = 'WAKTU HABIS!';
-      board.classList.remove('active'); // Kunci lagi area kliknya
+      board.classList.remove('active'); // Gembok kembali layarnya
       
-      // AUTO NEXT (Otomatis scroll ke soal berikutnya setelah 1.5 detik)
-      setTimeout(() => { alert(`Lanjut ke soal berikutnya! Jawaban ${soalId}: ${jawabanAlpha[soalId] || 'Kosong'}`); }, 1500);
+      // Simpan Jawaban Sementara
+      simpanJawabanAlpha(soalId, board);
+
+      // PINDAH OTOMATIS KE SOAL BERIKUTNYA DALAM 1 DETIK
+      setTimeout(() => {
+        indexSoalSaatIni++;
+        renderHalamanSoal(indexSoalSaatIni);
+      }, 1000);
     }
   }, 1000);
 }
 
-// Fungsi ketika kandidat mencoret bentuk
-function klikBentuk(soalId, elemen, idBentuk) {
-  elemen.classList.toggle('dicoret'); // Munculkan/hilangkan silang
+function simpanJawabanAlpha(soalId, board) {
+  // Sistem canggih: Otomatis membaca semua input & elemen yang dicoret di layar itu
+  jawabanAlpha[soalId] = { inputan: [], dicoret: [] };
   
-  if (!jawabanAlpha[soalId]) jawabanAlpha[soalId] = [];
+  // Cek kolom isian (Lingkaran/Kotak)
+  const inputs = board.querySelectorAll('input');
+  inputs.forEach(inp => { jawabanAlpha[soalId].inputan.push(inp.value.toUpperCase()); });
   
-  if (elemen.classList.contains('dicoret')) {
-    jawabanAlpha[soalId].push(idBentuk); // Simpan ke array
-  } else {
-    jawabanAlpha[soalId] = jawabanAlpha[soalId].filter(id => id !== idBentuk); // Hapus dari array
-  }
+  // Cek elemen yang diklik/dicoret
+  const clicks = board.querySelectorAll('.alpha-click');
+  clicks.forEach((clk, i) => { 
+    if(clk.classList.contains('dicoret')) jawabanAlpha[soalId].dicoret.push(i); 
+  });
+  
+  console.log(`Log Jawaban ${soalId}:`, jawabanAlpha[soalId]);
 }
+
+// Untuk trigger jalan pertama kali (Bisa ditaruh di tombol "Mulai Tahap 1")
+// mulaiTestAlpha();
 </script>
 </body>
 </html>
